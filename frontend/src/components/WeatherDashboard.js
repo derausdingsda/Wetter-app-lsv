@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { Badge } from "./ui/badge";
 import WindRose from "./WindRose";
 import CombinedWeatherCard from "./CombinedWeatherCard";
+import WebcamSection from "./WebcamSection";
 import ThemeToggle from "./ThemeToggle";
 import { mockWeatherData } from "../services/mockData";
 import { 
@@ -190,47 +190,8 @@ const WeatherDashboard = () => {
           </div>
         </section>
 
-        {/* Status Indicators */}
-        <section>
-          <Card className="p-6 dark:bg-slate-800 dark:border-slate-700 transition-colors duration-300">
-            <CardHeader>
-              <CardTitle className="dark:text-white">Flugbetrieb Status</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap gap-3">
-                <Badge 
-                  variant={weatherData.status.vfr ? "default" : "secondary"}
-                  className={`px-4 py-2 text-sm font-medium ${
-                    weatherData.status.vfr 
-                      ? "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 border-green-200 dark:border-green-700" 
-                      : "bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
-                  }`}
-                >
-                  {weatherData.status.vfr ? "VFR" : "IFR"}
-                </Badge>
-                <Badge 
-                  variant={weatherData.status.crosswindOk ? "default" : "destructive"}
-                  className={`px-4 py-2 text-sm font-medium ${
-                    weatherData.status.crosswindOk 
-                      ? "bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 border-blue-200 dark:border-blue-700" 
-                      : "bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 border-red-200 dark:border-red-700"
-                  }`}
-                >
-                  {weatherData.status.crosswindOk ? "Seitenwind OK" : "Seitenwind Warnung"}
-                </Badge>
-                <Badge 
-                  variant="outline"
-                  className="px-4 py-2 text-sm font-medium bg-yellow-50 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 border-yellow-200 dark:border-yellow-700"
-                >
-                  Runway: {weatherData.runway.active}
-                </Badge>
-              </div>
-              <div className="mt-4 text-sm text-gray-600 dark:text-gray-300">
-                Letzte Aktualisierung: {new Date(weatherData.lastUpdate).toLocaleString('de-DE')}
-              </div>
-            </CardContent>
-          </Card>
-        </section>
+        {/* Live Webcams */}
+        <WebcamSection />
       </div>
     </div>
   );
