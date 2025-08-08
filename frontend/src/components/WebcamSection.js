@@ -4,6 +4,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import { Camera, X } from "lucide-react";
 
 const WebcamSection = () => {
+  const [selectedWebcam, setSelectedWebcam] = useState(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   const webcams = [
     {
       id: 1,
@@ -31,6 +34,16 @@ const WebcamSection = () => {
       placeholder: "https://customer-assets.emergentagent.com/job_pilot-meteo/artifacts/xkz05fqy_IMG_0222.jpeg"
     }
   ];
+
+  const openFullscreen = (webcam) => {
+    setSelectedWebcam(webcam);
+    setIsDialogOpen(true);
+  };
+
+  const closeFullscreen = () => {
+    setIsDialogOpen(false);
+    setSelectedWebcam(null);
+  };
 
   return (
     <section>
