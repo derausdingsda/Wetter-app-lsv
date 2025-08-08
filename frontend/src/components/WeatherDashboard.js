@@ -67,7 +67,7 @@ const WeatherDashboard = () => {
     },
     {
       icon: <Gauge className="h-5 w-5" />,
-      label: "Luftdruck",
+      label: "QNH",
       value: `${weatherData.pressure.qnh} hPa`,
       subtitle: `QNH: ${weatherData.pressure.qnh} hPa`,
       trend: `QFE: ${weatherData.pressure.qfe} hPa`,
