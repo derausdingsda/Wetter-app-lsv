@@ -61,7 +61,12 @@ const WindRose = ({ windData, size = 300 }) => {
   }, [windData, size, isDarkMode]);
 
   const drawCompassRose = (ctx, centerX, centerY, radius) => {
-    ctx.strokeStyle = '#e2e8f0';
+    const strokeColor = isDarkMode ? '#475569' : '#e2e8f0';
+    const primaryStroke = isDarkMode ? '#cbd5e1' : '#475569';
+    const secondaryStroke = isDarkMode ? '#64748b' : '#cbd5e1';
+    const textColor = isDarkMode ? '#e2e8f0' : '#374151';
+    
+    ctx.strokeStyle = strokeColor;
     ctx.lineWidth = 1;
 
     // Draw concentric circles
@@ -93,7 +98,7 @@ const WindRose = ({ windData, size = 300 }) => {
       ctx.beginPath();
       ctx.moveTo(x1, y1);
       ctx.lineTo(x2, y2);
-      ctx.strokeStyle = primary ? '#475569' : '#cbd5e1';
+      ctx.strokeStyle = primary ? primaryStroke : secondaryStroke;
       ctx.lineWidth = primary ? 2 : 1;
       ctx.stroke();
 
@@ -101,7 +106,7 @@ const WindRose = ({ windData, size = 300 }) => {
       const labelX = centerX + Math.cos(radian) * radius * 1.15; // Reduced from 1.25 to 1.15 for optimal spacing
       const labelY = centerY + Math.sin(radian) * radius * 1.15; // Reduced from 1.25 to 1.15 for optimal spacing
       
-      ctx.fillStyle = '#374151';
+      ctx.fillStyle = textColor;
       ctx.font = primary ? 'bold 14px Arial' : '12px Arial';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
