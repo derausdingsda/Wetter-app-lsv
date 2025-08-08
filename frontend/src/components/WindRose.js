@@ -292,10 +292,10 @@ const WindRose = ({ windData }) => {
     const number07X = centerX + Math.cos(runway25Radian) * numberOffset;
     const number07Y = centerY + Math.sin(runway25Radian) * numberOffset;
     
-    // Save context for text rotation
+    // Save context for text rotation - rotate 180° to point in start direction
     ctx.save();
     ctx.translate(number07X, number07Y);
-    ctx.rotate(runway25Radian + Math.PI / 2); // Rotate text to match runway orientation
+    ctx.rotate(runway25Radian + Math.PI / 2 + Math.PI); // Add 180° rotation
     ctx.fillText('07', 0, 0);
     ctx.restore();
     
@@ -305,7 +305,7 @@ const WindRose = ({ windData }) => {
     
     ctx.save();
     ctx.translate(number25X, number25Y);
-    ctx.rotate(runway07Radian + Math.PI / 2); // Rotate text to match runway orientation
+    ctx.rotate(runway07Radian + Math.PI / 2 + Math.PI); // Add 180° rotation
     ctx.fillText('25', 0, 0);
     ctx.restore();
   };
