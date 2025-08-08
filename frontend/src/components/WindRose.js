@@ -295,22 +295,28 @@ const WindRose = ({ windData }) => {
 
   const drawWindArrow = (ctx, centerX, centerY, radius, direction) => {
     const radian = (direction - 90) * Math.PI / 180;
-    const arrowLength = radius * 0.7;
+    const arrowLength = radius * 0.6;
+    const arrowWidth = 8;
     
     // Calculate arrow tip position
     const tipX = centerX + Math.cos(radian) * arrowLength;
     const tipY = centerY + Math.sin(radian) * arrowLength;
     
-    // Arrow shaft
+    // Calculate arrow base position (from center, not opposite direction)
+    const baseLength = arrowLength * 0.3;
+    const baseX = centerX + Math.cos(radian) * baseLength;
+    const baseY = centerY + Math.sin(radian) * baseLength;
+    
+    // Arrow shaft - thicker and black like in the image
     ctx.beginPath();
     ctx.moveTo(centerX, centerY);
     ctx.lineTo(tipX, tipY);
-    ctx.strokeStyle = '#dc2626';
+    ctx.strokeStyle = isDarkMode ? '#1f2937' : '#000000';
     ctx.lineWidth = 4;
     ctx.stroke();
 
-    // Arrow head
-    const arrowHeadLength = 20;
+    // Arrow head - triangular like in the example
+    const arrowHeadLength = 15;
     const arrowHeadAngle = Math.PI / 6;
     
     ctx.beginPath();
@@ -319,19 +325,18 @@ const WindRose = ({ windData }) => {
       tipX - arrowHeadLength * Math.cos(radian - arrowHeadAngle),
       tipY - arrowHeadLength * Math.sin(radian - arrowHeadAngle)
     );
-    ctx.moveTo(tipX, tipY);
     ctx.lineTo(
       tipX - arrowHeadLength * Math.cos(radian + arrowHeadAngle),
       tipY - arrowHeadLength * Math.sin(radian + arrowHeadAngle)
     );
-    ctx.strokeStyle = '#dc2626';
-    ctx.lineWidth = 4;
-    ctx.stroke();
+    ctx.closePath();
+    ctx.fillStyle = isDarkMode ? '#1f2937' : '#000000';
+    ctx.fill();
 
     // Center dot
     ctx.beginPath();
-    ctx.arc(centerX, centerY, 4, 0, 2 * Math.PI);
-    ctx.fillStyle = '#dc2626';
+    ctx.arc(centerX, centerY, 3, 0, 2 * Math.PI);
+    ctx.fillStyle = isDarkMode ? '#1f2937' : '#000000';
     ctx.fill();
   };
 
