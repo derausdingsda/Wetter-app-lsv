@@ -155,7 +155,7 @@ const WeatherDashboard = () => {
 
             {/* Primary Weather Data - Pressure, Wind, Temperature, Humidity */}
             <CombinedWeatherCard
-              title="Luftdruck, Wind, Temperatur & Luftfeuchtigkeit"
+              title="Messwerte"
               data={primaryWeatherData}
             />
           </div>
