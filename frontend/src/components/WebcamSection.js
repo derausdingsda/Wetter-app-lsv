@@ -6,31 +6,38 @@ const WebcamSection = () => {
   const webcams = [
     {
       id: 1,
-      name: "Runway 07-25",
-      position: "Landebahn Ost",
+      name: "Flugplatz Nord",
+      position: "Nordseite",
       status: "Online",
-      placeholder: "https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=400&h=250&fit=crop&auto=format"
+      placeholder: "https://customer-assets.emergentagent.com/job_pilot-meteo/artifacts/xkz05fqy_IMG_0222.jpeg"
     },
     {
       id: 2,
-      name: "Tower View",
-      position: "Kontrollturm",
+      name: "Wetterstation West",
+      position: "Westseite",
       status: "Online",
-      placeholder: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&h=250&fit=crop&auto=format"
+      placeholder: "https://customer-assets.emergentagent.com/job_pilot-meteo/artifacts/e3ebykmy_IMG_0221.jpeg"
     },
     {
       id: 3,
-      name: "Windsack",
+      name: "Wetterstation Süd",
       position: "Südseite",
       status: "Online",
-      placeholder: "https://images.unsplash.com/photo-1583425423320-2386622cd2e4?w=400&h=250&fit=crop&auto=format"
+      placeholder: "https://customer-assets.emergentagent.com/job_pilot-meteo/artifacts/7qjkvj8w_IMG_0220.jpeg"
     },
     {
       id: 4,
-      name: "Vorfeld",
-      position: "Parkplätze",
+      name: "Wetterstation Ost",
+      position: "Ostseite",
       status: "Online",
-      placeholder: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=250&fit=crop&auto=format"
+      placeholder: "https://customer-assets.emergentagent.com/job_pilot-meteo/artifacts/j3a7bxmg_IMG_0219.jpeg"
+    },
+    {
+      id: 5,
+      name: "Landebahn Nord",
+      position: "Vereinsheim",
+      status: "Online",
+      placeholder: "https://customer-assets.emergentagent.com/job_pilot-meteo/artifacts/7hkklt0d_IMG_0218.jpeg"
     }
   ];
 
