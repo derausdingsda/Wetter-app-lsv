@@ -337,7 +337,10 @@ const WindRose = ({ windData }) => {
   };
 
   return (
-    <div className="flex justify-center items-center w-full h-full">
+    <div 
+      ref={containerRef}
+      className="flex justify-center items-center w-full h-full min-h-[300px]"
+    >
       <canvas
         ref={canvasRef}
         className="rounded-lg border border-gray-200 dark:border-slate-600 shadow-sm bg-white dark:bg-slate-700 transition-colors duration-300"
