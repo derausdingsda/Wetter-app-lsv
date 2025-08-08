@@ -150,8 +150,8 @@ const WeatherDashboard = () => {
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Wind Rose */}
-            <Card className="p-6 hover:shadow-lg transition-all duration-300 dark:bg-slate-800 dark:border-slate-700">
-              <CardContent className="p-0 h-96">
+            <Card className="p-3 hover:shadow-lg transition-all duration-300 dark:bg-slate-800 dark:border-slate-700">
+              <CardContent className="p-0 h-full min-h-[400px] lg:min-h-[500px]">
                 <WindRose 
                   windData={weatherData.wind}
                 />
