@@ -42,12 +42,8 @@ const WebcamSection = () => {
         {webcams.map((webcam) => (
           <Card key={webcam.id} className="overflow-hidden hover:shadow-lg transition-all duration-300 dark:bg-slate-800 dark:border-slate-700">
             <CardHeader className="pb-3">
-              <CardTitle className="flex items-center justify-between text-lg">
+              <CardTitle className="text-lg">
                 <span className="text-gray-800 dark:text-white">{webcam.name}</span>
-                <div className="flex items-center space-x-1">
-                  <Wifi className="h-4 w-4 text-green-500" />
-                  <span className="text-xs text-green-500 font-medium">{webcam.status}</span>
-                </div>
               </CardTitle>
             </CardHeader>
             <CardContent className="p-0">
