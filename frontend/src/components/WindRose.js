@@ -29,6 +29,9 @@ const WindRose = ({ windData, size = 300 }) => {
       // Draw compass rose background
       drawCompassRose(ctx, centerX, centerY, radius);
       
+      // Draw runway 07-25
+      drawRunway(ctx, centerX, centerY, radius);
+      
       // Draw wind direction arrow with animation
       drawWindArrow(ctx, centerX, centerY, radius, windData.direction + animationAngle);
       
