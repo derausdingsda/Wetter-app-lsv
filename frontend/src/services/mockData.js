@@ -133,8 +133,8 @@ const mockWeatherData = {
       },
       
       runway: {
-        active: windDirection >= 180 ? "09" : "27",
-        crosswind: Math.abs(Math.sin((windDirection - (windDirection >= 180 ? 90 : 270)) * Math.PI / 180) * windSpeed)
+        active: getActiveRunway(windDirection),
+        crosswind: Math.abs(Math.sin((windDirection - getRunwayHeading(windDirection)) * Math.PI / 180) * windSpeed)
       }
     };
   },
