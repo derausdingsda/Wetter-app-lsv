@@ -239,8 +239,8 @@ const WindRose = ({ windData }) => {
     ctx.stroke();
     ctx.setLineDash([]); // Reset line dash
     
-    // Draw runway threshold markings - CORRECTED to stay within runway bounds
-    const thresholdLength = 12;
+    // Draw runway threshold markings - SHORTENED to stay within runway
+    const thresholdLength = 8; // Reduced from 12 to 8 to stay within runway bounds
     const thresholdSpacing = 4;
     const runwayHalfWidth = runwayWidth / 2 - 2; // Keep markings inside runway bounds
     
