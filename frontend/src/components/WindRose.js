@@ -96,8 +96,8 @@ const WindRose = ({ windData, size = 300 }) => {
       ctx.stroke();
 
       // Draw labels
-      const labelX = centerX + Math.cos(radian) * radius * 1.15;
-      const labelY = centerY + Math.sin(radian) * radius * 1.15;
+      const labelX = centerX + Math.cos(radian) * radius * 1.08; // Reduced from 1.15 to 1.08
+      const labelY = centerY + Math.sin(radian) * radius * 1.08; // Reduced from 1.15 to 1.08
       
       ctx.fillStyle = '#374151';
       ctx.font = primary ? 'bold 14px Arial' : '12px Arial';
