@@ -279,22 +279,35 @@ const WindRose = ({ windData }) => {
     
     ctx.restore();
     
-    // Draw runway numbers
-    const labelOffset = 30;
-    
-    // Label for 07
-    const label07X = runway07X + Math.cos(runway07Radian) * labelOffset;
-    const label07Y = runway07Y + Math.sin(runway07Radian) * labelOffset;
-    ctx.fillStyle = isDarkMode ? '#f1f5f9' : '#1f2937';
-    ctx.font = 'bold 12px Arial';
+    // Draw runway numbers INSIDE the runway like real runways
+    ctx.fillStyle = isDarkMode ? '#ffffff' : '#ffffff'; // Always white text on dark runway
+    ctx.font = 'bold 18px Arial';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText('07', label07X, label07Y);
     
-    // Label for 25
-    const label25X = runway25X + Math.cos(runway25Radian) * labelOffset;
-    const label25Y = runway25Y + Math.sin(runway25Radian) * labelOffset;
-    ctx.fillText('25', label25X, label25Y);
+    // Calculate positions closer to center of runway for realistic placement
+    const numberOffset = runwayLength * 0.7; // Position numbers towards runway ends but not at extreme ends
+    
+    // 07 number - positioned on the runway surface
+    const number07X = centerX + Math.cos(runway07Radian) * numberOffset;
+    const number07Y = centerY + Math.sin(runway07Radian) * numberOffset;
+    
+    // Save context for text rotation
+    ctx.save();
+    ctx.translate(number07X, number07Y);
+    ctx.rotate(runway07Radian + Math.PI / 2); // Rotate text to match runway orientation
+    ctx.fillText('07', 0, 0);
+    ctx.restore();
+    
+    // 25 number - positioned on the runway surface  
+    const number25X = centerX + Math.cos(runway25Radian) * numberOffset;
+    const number25Y = centerY + Math.sin(runway25Radian) * numberOffset;
+    
+    ctx.save();
+    ctx.translate(number25X, number25Y);
+    ctx.rotate(runway25Radian + Math.PI / 2); // Rotate text to match runway orientation
+    ctx.fillText('25', 0, 0);
+    ctx.restore();
   };
 
   const drawWindArrow = (ctx, centerX, centerY, radius, direction) => {
