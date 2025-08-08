@@ -66,7 +66,7 @@ const WeatherDashboard = () => {
           </div>
           <div className="text-right">
             <div className="text-lg font-semibold text-gray-900">
-              {currentTime.toLocaleTimeString('de-DE')}
+              {currentTime.toLocaleTimeString('en-GB', { timeZone: 'UTC', hour12: false })} UTC
             </div>
             <div className="text-sm text-gray-600">
               {currentTime.toLocaleDateString('de-DE')}
