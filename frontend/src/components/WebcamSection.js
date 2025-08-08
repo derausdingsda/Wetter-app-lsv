@@ -57,20 +57,6 @@ const WebcamSection = () => {
                     e.target.src = "data:image/svg+xml,%3Csvg width='400' height='250' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='400' height='250' fill='%23e2e8f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236b7280' font-size='14' font-family='Arial'%3EWebcam Platzhalter%3C/text%3E%3C/svg%3E";
                   }}
                 />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3">
-                  <div className="text-white text-xs font-medium">
-                    Live • {new Date().toLocaleTimeString('de-DE', { 
-                      hour: '2-digit', 
-                      minute: '2-digit',
-                      timeZone: 'UTC'
-                    })} UTC
-                  </div>
-                </div>
-              </div>
-              <div className="p-3 bg-gray-50 dark:bg-slate-700/50">
-                <div className="text-xs text-gray-500 dark:text-gray-400">
-                  Aktualisierung alle 30 Sekunden
-                </div>
               </div>
             </CardContent>
           </Card>
