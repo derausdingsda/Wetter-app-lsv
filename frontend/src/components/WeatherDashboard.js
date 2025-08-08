@@ -117,7 +117,7 @@ const WeatherDashboard = () => {
                 Flugwetter EDUZ
               </h1>
               <p className="text-gray-600 dark:text-gray-300">
-                {weatherData.airportName} - {weatherData.icaoCode}
+                {weatherData.airportName}
               </p>
             </div>
           </div>
