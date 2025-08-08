@@ -179,7 +179,7 @@ const WeatherDashboard = () => {
             Weitere Messwerte
           </h2>
           
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {secondaryWeatherData.map((item, index) => (
               <CombinedWeatherCard
                 key={index}
