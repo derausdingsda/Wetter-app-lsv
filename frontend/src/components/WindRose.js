@@ -346,25 +346,8 @@ const WindRose = ({ windData }) => {
   };
 
   const drawLabels = (ctx, centerX, centerY, radius) => {
-    // Speed labels at 120 degrees instead of 90 degrees
-    const labelAngle = 120; // degrees
-    const labelRadian = (labelAngle - 90) * Math.PI / 180;
-    
-    ctx.fillStyle = isDarkMode ? '#94a3b8' : '#6b7280';
-    ctx.font = '10px Arial';
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'middle';
-    
-    for (let speed = 10; speed <= 40; speed += 10) {
-      const ringRadius = (radius * speed) / 40;
-      if (ringRadius > radius) break;
-      
-      // Calculate position at 120 degrees
-      const labelX = centerX + Math.cos(labelRadian) * ringRadius + 5;
-      const labelY = centerY + Math.sin(labelRadian) * ringRadius;
-      
-      ctx.fillText(`${speed}kt`, labelX, labelY);
-    }
+    // Remove speed labels for cleaner appearance like in the example
+    // Speed information is shown in the weather data card
   };
 
   const drawSpeedInfo = (ctx, centerX, centerY, windData) => {
