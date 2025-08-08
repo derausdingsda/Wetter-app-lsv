@@ -11,7 +11,7 @@ const WindRose = ({ windData, size = 300 }) => {
     const ctx = canvas.getContext('2d');
     const centerX = size / 2;
     const centerY = size / 2;
-    const radius = size * 0.4;
+    const radius = size * 0.35; // Reduced from 0.4 to 0.35 to leave more space for labels
 
     // Set canvas size with device pixel ratio for crisp rendering
     const dpr = window.devicePixelRatio || 1;
