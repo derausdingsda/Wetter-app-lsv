@@ -322,7 +322,7 @@ const WindRose = ({ windData }) => {
     
     // Position the arrow on the outer ring, not from center
     const arrowDistance = radius * 1.05; // Just outside the main circle
-    const arrowLength = 25; // Static length, independent of wind speed
+    const arrowLength = 35; // Increased from 25 to 35 for larger arrow
     
     // Calculate arrow base position on the outer ring
     const arrowBaseX = centerX + Math.cos(radian) * arrowDistance;
@@ -332,16 +332,16 @@ const WindRose = ({ windData }) => {
     const arrowTipX = arrowBaseX - Math.cos(radian) * arrowLength;
     const arrowTipY = arrowBaseY - Math.sin(radian) * arrowLength;
     
-    // Draw arrow shaft
+    // Draw arrow shaft - thicker
     ctx.beginPath();
     ctx.moveTo(arrowBaseX, arrowBaseY);
     ctx.lineTo(arrowTipX, arrowTipY);
     ctx.strokeStyle = isDarkMode ? '#dc2626' : '#dc2626'; // Red arrow for better visibility
-    ctx.lineWidth = 3;
+    ctx.lineWidth = 5; // Increased from 3 to 5 for thicker arrow
     ctx.stroke();
 
-    // Draw arrow head (pointing toward center)
-    const arrowHeadLength = 8;
+    // Draw arrow head (pointing toward center) - larger
+    const arrowHeadLength = 12; // Increased from 8 to 12
     const arrowHeadAngle = Math.PI / 6;
     
     ctx.beginPath();
