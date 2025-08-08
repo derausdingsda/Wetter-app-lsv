@@ -82,18 +82,18 @@ const WebcamSection = () => {
 
       {/* Fullscreen Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="max-w-5xl w-full max-h-[85vh] p-4">
-          <DialogHeader className="pb-2">
-            <DialogTitle className="text-xl font-bold">
+        <DialogContent className="max-w-6xl w-full max-h-[90vh] p-2 flex flex-col">
+          <DialogHeader className="pb-1">
+            <DialogTitle className="text-lg font-bold text-center">
               Webcam {selectedWebcam?.name}
             </DialogTitle>
           </DialogHeader>
-          <div className="flex justify-center items-center">
+          <div className="flex-1 flex justify-center items-center min-h-0">
             {selectedWebcam && (
               <img 
                 src={selectedWebcam.placeholder}
                 alt={`Webcam ${selectedWebcam.name} - Vollbild`}
-                className="max-w-full max-h-[70vh] object-contain rounded-lg border border-gray-200 dark:border-slate-600"
+                className="max-w-full max-h-full object-contain rounded-lg border border-gray-200 dark:border-slate-600"
                 onError={(e) => {
                   e.target.src = "data:image/svg+xml,%3Csvg width='800' height='600' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='800' height='600' fill='%23e2e8f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236b7280' font-size='24' font-family='Arial'%3EWebcam Bild nicht verfügbar%3C/text%3E%3C/svg%3E";
                 }}
