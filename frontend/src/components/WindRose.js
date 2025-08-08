@@ -192,62 +192,97 @@ const WindRose = ({ windData }) => {
     const runway07Radian = (runway07Angle - 90) * Math.PI / 180;
     const runway25Radian = (runway25Angle - 90) * Math.PI / 180;
     
-    // Calculate runway endpoints
-    const runwayLength = radius * 0.8; // Make runway span most of the wind rose
+    // Calculate runway endpoints - make it span most of the compass
+    const runwayLength = radius * 0.9;
     const runway07X = centerX + Math.cos(runway07Radian) * runwayLength;
     const runway07Y = centerY + Math.sin(runway07Radian) * runwayLength;
     const runway25X = centerX + Math.cos(runway25Radian) * runwayLength;
     const runway25Y = centerY + Math.sin(runway25Radian) * runwayLength;
     
-    // Draw runway line
+    // Draw main runway strip (black with dashed centerline like in the image)
+    const runwayWidth = 20;
+    
+    // Save context for clipping
+    ctx.save();
+    
+    // Create runway shape
+    const perpAngle = runway07Radian + Math.PI / 2;
+    const halfWidth = runwayWidth / 2;
+    
+    ctx.beginPath();
+    ctx.moveTo(runway25X + Math.cos(perpAngle) * halfWidth, runway25Y + Math.sin(perpAngle) * halfWidth);
+    ctx.lineTo(runway07X + Math.cos(perpAngle) * halfWidth, runway07Y + Math.sin(perpAngle) * halfWidth);
+    ctx.lineTo(runway07X - Math.cos(perpAngle) * halfWidth, runway07Y - Math.sin(perpAngle) * halfWidth);
+    ctx.lineTo(runway25X - Math.cos(perpAngle) * halfWidth, runway25Y - Math.sin(perpAngle) * halfWidth);
+    ctx.closePath();
+    
+    // Fill runway with dark color
+    ctx.fillStyle = isDarkMode ? '#1f2937' : '#374151';
+    ctx.fill();
+    
+    // Add runway border
+    ctx.strokeStyle = isDarkMode ? '#4b5563' : '#1f2937';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    
+    // Draw dashed centerline
     ctx.beginPath();
     ctx.moveTo(runway25X, runway25Y);
     ctx.lineTo(runway07X, runway07Y);
-    ctx.strokeStyle = '#059669'; // Green color for runway
-    ctx.lineWidth = 6;
+    ctx.strokeStyle = isDarkMode ? '#9ca3af' : '#d1d5db';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([8, 4]);
     ctx.stroke();
+    ctx.setLineDash([]); // Reset line dash
     
-    // Draw runway end markers
-    const markerLength = 8;
-    const perpAngle07 = runway07Radian + Math.PI / 2;
-    const perpAngle25 = runway25Radian + Math.PI / 2;
+    // Draw runway threshold markings
+    const thresholdLength = 12;
+    const thresholdSpacing = 6;
     
-    // Runway 07 marker
-    ctx.beginPath();
-    ctx.moveTo(
-      runway07X + Math.cos(perpAngle07) * markerLength,
-      runway07Y + Math.sin(perpAngle07) * markerLength
-    );
-    ctx.lineTo(
-      runway07X - Math.cos(perpAngle07) * markerLength,
-      runway07Y - Math.sin(perpAngle07) * markerLength
-    );
-    ctx.strokeStyle = '#059669';
-    ctx.lineWidth = 4;
-    ctx.stroke();
+    // 07 threshold
+    for (let i = -2; i <= 2; i++) {
+      const offsetX = Math.cos(perpAngle) * i * thresholdSpacing;
+      const offsetY = Math.sin(perpAngle) * i * thresholdSpacing;
+      const startX = runway07X + offsetX - Math.cos(runway07Radian) * thresholdLength/2;
+      const startY = runway07Y + offsetY - Math.sin(runway07Radian) * thresholdLength/2;
+      const endX = runway07X + offsetX + Math.cos(runway07Radian) * thresholdLength/2;
+      const endY = runway07Y + offsetY + Math.sin(runway07Radian) * thresholdLength/2;
+      
+      ctx.beginPath();
+      ctx.moveTo(startX, startY);
+      ctx.lineTo(endX, endY);
+      ctx.strokeStyle = isDarkMode ? '#f9fafb' : '#ffffff';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
     
-    // Runway 25 marker
-    ctx.beginPath();
-    ctx.moveTo(
-      runway25X + Math.cos(perpAngle25) * markerLength,
-      runway25Y + Math.sin(perpAngle25) * markerLength
-    );
-    ctx.lineTo(
-      runway25X - Math.cos(perpAngle25) * markerLength,
-      runway25Y - Math.sin(perpAngle25) * markerLength
-    );
-    ctx.strokeStyle = '#059669';
-    ctx.lineWidth = 4;
-    ctx.stroke();
+    // 25 threshold
+    for (let i = -2; i <= 2; i++) {
+      const offsetX = Math.cos(perpAngle) * i * thresholdSpacing;
+      const offsetY = Math.sin(perpAngle) * i * thresholdSpacing;
+      const startX = runway25X + offsetX - Math.cos(runway25Radian) * thresholdLength/2;
+      const startY = runway25Y + offsetY - Math.sin(runway25Radian) * thresholdLength/2;
+      const endX = runway25X + offsetX + Math.cos(runway25Radian) * thresholdLength/2;
+      const endY = runway25Y + offsetY + Math.sin(runway25Radian) * thresholdLength/2;
+      
+      ctx.beginPath();
+      ctx.moveTo(startX, startY);
+      ctx.lineTo(endX, endY);
+      ctx.strokeStyle = isDarkMode ? '#f9fafb' : '#ffffff';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
     
-    // Draw runway labels
-    const labelOffset = 25;
+    ctx.restore();
+    
+    // Draw runway numbers
+    const labelOffset = 30;
     
     // Label for 07
     const label07X = runway07X + Math.cos(runway07Radian) * labelOffset;
     const label07Y = runway07Y + Math.sin(runway07Radian) * labelOffset;
-    ctx.fillStyle = '#059669';
-    ctx.font = 'bold 14px Arial';
+    ctx.fillStyle = isDarkMode ? '#f1f5f9' : '#1f2937';
+    ctx.font = 'bold 12px Arial';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText('07', label07X, label07Y);
@@ -256,12 +291,6 @@ const WindRose = ({ windData }) => {
     const label25X = runway25X + Math.cos(runway25Radian) * labelOffset;
     const label25Y = runway25Y + Math.sin(runway25Radian) * labelOffset;
     ctx.fillText('25', label25X, label25Y);
-    
-    // Add runway info in legend - REMOVED
-    // ctx.fillStyle = isDarkMode ? '#94a3b8' : '#6b7280';
-    // ctx.font = '11px Arial';
-    // ctx.textAlign = 'center';
-    // ctx.fillText('Runway 07-25', centerX, centerY - 80);
   };
 
   const drawWindArrow = (ctx, centerX, centerY, radius, direction) => {
