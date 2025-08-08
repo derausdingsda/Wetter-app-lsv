@@ -69,7 +69,6 @@ const WeatherDashboard = () => {
       icon: <Gauge className="h-5 w-5" />,
       label: "QNH",
       value: `${weatherData.pressure.qnh} hPa`,
-      subtitle: `QNH: ${weatherData.pressure.qnh} hPa`,
       trend: `QFE: ${weatherData.pressure.qfe} hPa`,
       color: "purple"
     },
@@ -77,7 +76,6 @@ const WeatherDashboard = () => {
       icon: <Thermometer className="h-5 w-5" />,
       label: "Temperatur",
       value: `${weatherData.temperature.current}°C`,
-      subtitle: `Gefühlt ${weatherData.temperature.feelsLike}°C`,
       trend: `Taupunkt: ${weatherData.temperature.dewPoint}°C`,
       color: "orange"
     },
