@@ -6,36 +6,31 @@ const WebcamSection = () => {
   const webcams = [
     {
       id: 1,
-      name: "Flugplatz Nord",
-      position: "Nordseite",
+      name: "Himmel Nord",
       status: "Online",
       placeholder: "https://customer-assets.emergentagent.com/job_pilot-meteo/artifacts/xkz05fqy_IMG_0222.jpeg"
     },
     {
       id: 2,
       name: "Wetterstation West",
-      position: "Westseite",
       status: "Online",
       placeholder: "https://customer-assets.emergentagent.com/job_pilot-meteo/artifacts/e3ebykmy_IMG_0221.jpeg"
     },
     {
       id: 3,
       name: "Wetterstation Süd",
-      position: "Südseite",
       status: "Online",
       placeholder: "https://customer-assets.emergentagent.com/job_pilot-meteo/artifacts/7qjkvj8w_IMG_0220.jpeg"
     },
     {
       id: 4,
       name: "Wetterstation Ost",
-      position: "Ostseite",
       status: "Online",
       placeholder: "https://customer-assets.emergentagent.com/job_pilot-meteo/artifacts/j3a7bxmg_IMG_0219.jpeg"
     },
     {
       id: 5,
       name: "Landebahn Nord",
-      position: "Vereinsheim",
       status: "Online",
       placeholder: "https://customer-assets.emergentagent.com/job_pilot-meteo/artifacts/7hkklt0d_IMG_0218.jpeg"
     }
