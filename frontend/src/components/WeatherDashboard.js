@@ -161,23 +161,6 @@ const WeatherDashboard = () => {
           </div>
         </section>
 
-        {/* Additional Weather Data */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-            Weitere Messwerte
-          </h2>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {secondaryWeatherData.map((item, index) => (
-              <CombinedWeatherCard
-                key={index}
-                title={item.label}
-                data={[item]}
-              />
-            ))}
-          </div>
-        </section>
-
         {/* Live Webcams */}
         <WebcamSection />
       </div>
