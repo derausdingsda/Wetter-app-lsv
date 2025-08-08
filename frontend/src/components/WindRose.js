@@ -189,7 +189,7 @@ const WindRose = ({ windData, size = 300 }) => {
     ctx.fillText('25', label25X, label25Y);
     
     // Add runway info in legend
-    ctx.fillStyle = '#6b7280';
+    ctx.fillStyle = isDarkMode ? '#94a3b8' : '#6b7280';
     ctx.font = '11px Arial';
     ctx.textAlign = 'center';
     ctx.fillText('Runway 07-25', centerX, centerY - 80);
