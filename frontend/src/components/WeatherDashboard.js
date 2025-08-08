@@ -165,10 +165,11 @@ const WeatherDashboard = () => {
               </CardContent>
             </Card>
 
-            {/* Weather Overview - Only Windrose */}
-            <div className="space-y-4">
-              {/* This space is now used for the windrose only */}
-            </div>
+            {/* Primary Weather Data - Pressure, Wind, Temperature */}
+            <CombinedWeatherCard
+              title="Luftdruck, Wind & Temperatur"
+              data={primaryWeatherData}
+            />
           </div>
         </section>
 
