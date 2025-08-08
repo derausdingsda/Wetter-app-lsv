@@ -54,7 +54,6 @@ const WebcamSection = () => {
                   <span className="text-xs text-green-500 font-medium">{webcam.status}</span>
                 </div>
               </CardTitle>
-              <p className="text-sm text-gray-600 dark:text-gray-300">{webcam.position}</p>
             </CardHeader>
             <CardContent className="p-0">
               <div className="relative">
