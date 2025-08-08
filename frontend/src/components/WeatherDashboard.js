@@ -56,7 +56,15 @@ const WeatherDashboard = () => {
   };
 
   // Prepare combined weather data
-  const windTemperatureData = [
+  const primaryWeatherData = [
+    {
+      icon: <Gauge className="h-5 w-5" />,
+      label: "Luftdruck",
+      value: `${weatherData.pressure.qnh} hPa`,
+      subtitle: `QNH: ${weatherData.pressure.qnh} hPa`,
+      trend: `QFE: ${weatherData.pressure.qfe} hPa`,
+      color: "purple"
+    },
     {
       icon: <Wind className="h-5 w-5" />,
       label: "Wind",
@@ -75,7 +83,7 @@ const WeatherDashboard = () => {
     }
   ];
 
-  const humidityPressureData = [
+  const secondaryWeatherData = [
     {
       icon: <Droplets className="h-5 w-5" />,
       label: "Luftfeuchtigkeit",
@@ -83,17 +91,6 @@ const WeatherDashboard = () => {
       subtitle: "Relative Feuchtigkeit",
       color: "teal"
     },
-    {
-      icon: <Gauge className="h-5 w-5" />,
-      label: "Luftdruck",
-      value: `${weatherData.pressure.qnh} hPa`,
-      subtitle: `QNH: ${weatherData.pressure.qnh} hPa`,
-      trend: `QFE: ${weatherData.pressure.qfe} hPa`,
-      color: "purple"
-    }
-  ];
-
-  const visibilityCloudsData = [
     {
       icon: <Eye className="h-5 w-5" />,
       label: "Sichtweite",
