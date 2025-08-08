@@ -60,8 +60,7 @@ const WeatherDashboard = () => {
     {
       icon: <Wind className="h-5 w-5" />,
       label: "Wind",
-      value: `${weatherData.wind.speed} kt / ${weatherData.wind.direction}°`,
-      subtitle: `aus ${weatherData.wind.directionName}`,
+      value: `${weatherData.wind.direction}° / ${weatherData.wind.speed} kt`,
       trend: weatherData.wind.gusts > weatherData.wind.speed ? `Böen bis ${weatherData.wind.gusts} kt` : "Gleichmäßig",
       color: "blue"
     },
@@ -69,7 +68,6 @@ const WeatherDashboard = () => {
       icon: <Gauge className="h-5 w-5" />,
       label: "QNH",
       value: `${weatherData.pressure.qnh} hPa`,
-      trend: `QFE: ${weatherData.pressure.qfe} hPa`,
       color: "purple"
     },
     {
@@ -83,7 +81,6 @@ const WeatherDashboard = () => {
       icon: <Droplets className="h-5 w-5" />,
       label: "Luftfeuchtigkeit",
       value: `${weatherData.humidity}%`,
-      subtitle: "Relative Feuchtigkeit",
       color: "teal"
     }
   ];
