@@ -45,6 +45,30 @@ const getBeaufortScale = (speedKnots) => {
   return "9+ - Sturm";
 };
 
+const getActiveRunway = (windDirection) => {
+  // Runway 07-25: 070° - 250°
+  // Calculate which runway end provides better headwind
+  const runway07Heading = 70;
+  const runway25Heading = 250;
+  
+  // Calculate angle differences (headwind component)
+  const diff07 = Math.abs(windDirection - runway07Heading);
+  const diff25 = Math.abs(windDirection - runway25Heading);
+  
+  // Handle circular nature of degrees
+  const normalizedDiff07 = diff07 > 180 ? 360 - diff07 : diff07;
+  const normalizedDiff25 = diff25 > 180 ? 360 - diff25 : diff25;
+  
+  // Choose runway with smallest angle difference (best headwind)
+  return normalizedDiff07 < normalizedDiff25 ? "07" : "25";
+};
+
+const getRunwayHeading = (windDirection) => {
+  // Return the heading of the active runway
+  const activeRunway = getActiveRunway(windDirection);
+  return activeRunway === "07" ? 70 : 250;
+};
+
 const getVisibilityCondition = (distance) => {
   if (distance >= 10) return "Ausgezeichnet";
   if (distance >= 5) return "Sehr gut";
