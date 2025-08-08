@@ -61,7 +61,10 @@ const WebcamSection = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="p-0">
-              <div className="relative">
+              <div 
+                className="relative cursor-pointer hover:opacity-90 transition-opacity duration-200"
+                onClick={() => openFullscreen(webcam)}
+              >
                 <img 
                   src={webcam.placeholder}
                   alt={`Webcam ${webcam.name}`}
@@ -71,6 +74,12 @@ const WebcamSection = () => {
                     e.target.src = "data:image/svg+xml,%3Csvg width='400' height='250' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='400' height='250' fill='%23e2e8f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236b7280' font-size='14' font-family='Arial'%3EWebcam Platzhalter%3C/text%3E%3C/svg%3E";
                   }}
                 />
+                {/* Hover indicator */}
+                <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-all duration-200 flex items-center justify-center">
+                  <div className="opacity-0 hover:opacity-100 transition-opacity duration-200 bg-white/80 rounded-full p-2">
+                    <Camera className="h-6 w-6 text-gray-700" />
+                  </div>
+                </div>
               </div>
             </CardContent>
           </Card>
