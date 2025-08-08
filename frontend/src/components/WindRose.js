@@ -319,48 +319,43 @@ const WindRose = ({ windData }) => {
 
   const drawWindArrow = (ctx, centerX, centerY, radius, direction) => {
     const radian = (direction - 90) * Math.PI / 180;
-    const arrowLength = radius * 0.6;
-    const arrowWidth = 8;
     
-    // Calculate arrow tip position
-    const tipX = centerX + Math.cos(radian) * arrowLength;
-    const tipY = centerY + Math.sin(radian) * arrowLength;
+    // Position the arrow on the outer ring, not from center
+    const arrowDistance = radius * 1.05; // Just outside the main circle
+    const arrowLength = 25; // Static length, independent of wind speed
     
-    // Calculate arrow base position (from center, not opposite direction)
-    const baseLength = arrowLength * 0.3;
-    const baseX = centerX + Math.cos(radian) * baseLength;
-    const baseY = centerY + Math.sin(radian) * baseLength;
+    // Calculate arrow base position on the outer ring
+    const arrowBaseX = centerX + Math.cos(radian) * arrowDistance;
+    const arrowBaseY = centerY + Math.sin(radian) * arrowDistance;
     
-    // Arrow shaft - thicker and black like in the image
+    // Calculate arrow tip position (pointing inward toward center)
+    const arrowTipX = arrowBaseX - Math.cos(radian) * arrowLength;
+    const arrowTipY = arrowBaseY - Math.sin(radian) * arrowLength;
+    
+    // Draw arrow shaft
     ctx.beginPath();
-    ctx.moveTo(centerX, centerY);
-    ctx.lineTo(tipX, tipY);
-    ctx.strokeStyle = isDarkMode ? '#1f2937' : '#000000';
-    ctx.lineWidth = 4;
+    ctx.moveTo(arrowBaseX, arrowBaseY);
+    ctx.lineTo(arrowTipX, arrowTipY);
+    ctx.strokeStyle = isDarkMode ? '#dc2626' : '#dc2626'; // Red arrow for better visibility
+    ctx.lineWidth = 3;
     ctx.stroke();
 
-    // Arrow head - triangular like in the example
-    const arrowHeadLength = 15;
+    // Draw arrow head (pointing toward center)
+    const arrowHeadLength = 8;
     const arrowHeadAngle = Math.PI / 6;
     
     ctx.beginPath();
-    ctx.moveTo(tipX, tipY);
+    ctx.moveTo(arrowTipX, arrowTipY);
     ctx.lineTo(
-      tipX - arrowHeadLength * Math.cos(radian - arrowHeadAngle),
-      tipY - arrowHeadLength * Math.sin(radian - arrowHeadAngle)
+      arrowTipX + arrowHeadLength * Math.cos(radian - arrowHeadAngle),
+      arrowTipY + arrowHeadLength * Math.sin(radian - arrowHeadAngle)
     );
     ctx.lineTo(
-      tipX - arrowHeadLength * Math.cos(radian + arrowHeadAngle),
-      tipY - arrowHeadLength * Math.sin(radian + arrowHeadAngle)
+      arrowTipX + arrowHeadLength * Math.cos(radian + arrowHeadAngle),
+      arrowTipY + arrowHeadLength * Math.sin(radian + arrowHeadAngle)
     );
     ctx.closePath();
-    ctx.fillStyle = isDarkMode ? '#1f2937' : '#000000';
-    ctx.fill();
-
-    // Center dot
-    ctx.beginPath();
-    ctx.arc(centerX, centerY, 3, 0, 2 * Math.PI);
-    ctx.fillStyle = isDarkMode ? '#1f2937' : '#000000';
+    ctx.fillStyle = isDarkMode ? '#dc2626' : '#dc2626';
     ctx.fill();
   };
 
