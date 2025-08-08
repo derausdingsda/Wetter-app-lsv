@@ -288,25 +288,25 @@ const WindRose = ({ windData }) => {
     // Calculate positions closer to center of runway for realistic placement
     const numberOffset = runwayLength * 0.7; // Position numbers towards runway ends but not at extreme ends
     
-    // 25 number - positioned on the 250° side (left side) of the runway surface
-    const number25X = centerX + Math.cos(runway25Radian) * numberOffset;
-    const number25Y = centerY + Math.sin(runway25Radian) * numberOffset;
+    // 07 number - positioned on the 250° side (where you start to go towards 070°)
+    const number07X = centerX + Math.cos(runway25Radian) * numberOffset;
+    const number07Y = centerY + Math.sin(runway25Radian) * numberOffset;
     
     // Save context for text rotation
     ctx.save();
-    ctx.translate(number25X, number25Y);
+    ctx.translate(number07X, number07Y);
     ctx.rotate(runway25Radian + Math.PI / 2); // Rotate text to match runway orientation
-    ctx.fillText('25', 0, 0);
+    ctx.fillText('07', 0, 0);
     ctx.restore();
     
-    // 07 number - positioned on the 070° side (right side) of the runway surface  
-    const number07X = centerX + Math.cos(runway07Radian) * numberOffset;
-    const number07Y = centerY + Math.sin(runway07Radian) * numberOffset;
+    // 25 number - positioned on the 070° side (where you start to go towards 250°)
+    const number25X = centerX + Math.cos(runway07Radian) * numberOffset;
+    const number25Y = centerY + Math.sin(runway07Radian) * numberOffset;
     
     ctx.save();
-    ctx.translate(number07X, number07Y);
+    ctx.translate(number25X, number25Y);
     ctx.rotate(runway07Radian + Math.PI / 2); // Rotate text to match runway orientation
-    ctx.fillText('07', 0, 0);
+    ctx.fillText('25', 0, 0);
     ctx.restore();
   };
 
