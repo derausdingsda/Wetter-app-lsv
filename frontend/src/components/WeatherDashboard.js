@@ -80,17 +80,17 @@ const WeatherDashboard = () => {
       subtitle: `Gefühlt ${weatherData.temperature.feelsLike}°C`,
       trend: `Taupunkt: ${weatherData.temperature.dewPoint}°C`,
       color: "orange"
-    }
-  ];
-
-  const secondaryWeatherData = [
+    },
     {
       icon: <Droplets className="h-5 w-5" />,
       label: "Luftfeuchtigkeit",
       value: `${weatherData.humidity}%`,
       subtitle: "Relative Feuchtigkeit",
       color: "teal"
-    },
+    }
+  ];
+
+  const secondaryWeatherData = [
     {
       icon: <Eye className="h-5 w-5" />,
       label: "Sichtweite",
