@@ -60,7 +60,7 @@ const WeatherDashboard = () => {
     {
       icon: <Wind className="h-5 w-5" />,
       label: "Wind",
-      value: `${weatherData.wind.speed} kt / ${weatherData.wind.direction}`,
+      value: `${weatherData.wind.speed} kt / ${weatherData.wind.direction}°`,
       subtitle: `aus ${weatherData.wind.directionName}`,
       trend: weatherData.wind.gusts > weatherData.wind.speed ? `Böen bis ${weatherData.wind.gusts} kt` : "Gleichmäßig",
       color: "blue"
