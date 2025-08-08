@@ -107,6 +107,87 @@ const WindRose = ({ windData, size = 300 }) => {
     });
   };
 
+  const drawRunway = (ctx, centerX, centerY, radius) => {
+    // Runway 07-25: 070° to 250° (70° - 250°)
+    const runway07Angle = 70; // Runway 07 heading
+    const runway25Angle = 250; // Runway 25 heading (opposite direction)
+    
+    // Convert to radians (subtract 90° to align with canvas coordinate system)
+    const runway07Radian = (runway07Angle - 90) * Math.PI / 180;
+    const runway25Radian = (runway25Angle - 90) * Math.PI / 180;
+    
+    // Calculate runway endpoints
+    const runwayLength = radius * 0.8; // Make runway span most of the wind rose
+    const runway07X = centerX + Math.cos(runway07Radian) * runwayLength;
+    const runway07Y = centerY + Math.sin(runway07Radian) * runwayLength;
+    const runway25X = centerX + Math.cos(runway25Radian) * runwayLength;
+    const runway25Y = centerY + Math.sin(runway25Radian) * runwayLength;
+    
+    // Draw runway line
+    ctx.beginPath();
+    ctx.moveTo(runway25X, runway25Y);
+    ctx.lineTo(runway07X, runway07Y);
+    ctx.strokeStyle = '#059669'; // Green color for runway
+    ctx.lineWidth = 6;
+    ctx.stroke();
+    
+    // Draw runway end markers
+    const markerLength = 8;
+    const perpAngle07 = runway07Radian + Math.PI / 2;
+    const perpAngle25 = runway25Radian + Math.PI / 2;
+    
+    // Runway 07 marker
+    ctx.beginPath();
+    ctx.moveTo(
+      runway07X + Math.cos(perpAngle07) * markerLength,
+      runway07Y + Math.sin(perpAngle07) * markerLength
+    );
+    ctx.lineTo(
+      runway07X - Math.cos(perpAngle07) * markerLength,
+      runway07Y - Math.sin(perpAngle07) * markerLength
+    );
+    ctx.strokeStyle = '#059669';
+    ctx.lineWidth = 4;
+    ctx.stroke();
+    
+    // Runway 25 marker
+    ctx.beginPath();
+    ctx.moveTo(
+      runway25X + Math.cos(perpAngle25) * markerLength,
+      runway25Y + Math.sin(perpAngle25) * markerLength
+    );
+    ctx.lineTo(
+      runway25X - Math.cos(perpAngle25) * markerLength,
+      runway25Y - Math.sin(perpAngle25) * markerLength
+    );
+    ctx.strokeStyle = '#059669';
+    ctx.lineWidth = 4;
+    ctx.stroke();
+    
+    // Draw runway labels
+    const labelOffset = 25;
+    
+    // Label for 07
+    const label07X = runway07X + Math.cos(runway07Radian) * labelOffset;
+    const label07Y = runway07Y + Math.sin(runway07Radian) * labelOffset;
+    ctx.fillStyle = '#059669';
+    ctx.font = 'bold 14px Arial';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('07', label07X, label07Y);
+    
+    // Label for 25
+    const label25X = runway25X + Math.cos(runway25Radian) * labelOffset;
+    const label25Y = runway25Y + Math.sin(runway25Radian) * labelOffset;
+    ctx.fillText('25', label25X, label25Y);
+    
+    // Add runway info in legend
+    ctx.fillStyle = '#6b7280';
+    ctx.font = '11px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('Runway 07-25', centerX, centerY - 80);
+  };
+
   const drawWindArrow = (ctx, centerX, centerY, radius, direction) => {
     const radian = (direction - 90) * Math.PI / 180;
     const arrowLength = radius * 0.7;
