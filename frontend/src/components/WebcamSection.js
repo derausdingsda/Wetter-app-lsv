@@ -62,24 +62,18 @@ const WebcamSection = () => {
             </CardHeader>
             <CardContent className="p-0">
               <div 
-                className="relative cursor-pointer group"
+                className="relative cursor-pointer"
                 onClick={() => openFullscreen(webcam)}
               >
                 <img 
                   src={webcam.placeholder}
                   alt={`Webcam ${webcam.name}`}
-                  className="w-full h-48 object-cover group-hover:opacity-90 transition-opacity duration-200"
+                  className="w-full h-48 object-cover hover:opacity-95 transition-opacity duration-200"
                   onError={(e) => {
                     // Fallback to a solid color placeholder if image fails
                     e.target.src = "data:image/svg+xml,%3Csvg width='400' height='250' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='400' height='250' fill='%23e2e8f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236b7280' font-size='14' font-family='Arial'%3EWebcam Platzhalter%3C/text%3E%3C/svg%3E";
                   }}
                 />
-                {/* Hover indicator */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-                  <div className="bg-white/90 dark:bg-slate-800/90 rounded-full p-3 shadow-lg">
-                    <Camera className="h-8 w-8 text-gray-700 dark:text-gray-200" />
-                  </div>
-                </div>
               </div>
             </CardContent>
           </Card>
