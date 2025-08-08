@@ -158,25 +158,29 @@ const WindRose = ({ windData }) => {
       ctx.stroke();
     }
 
-    // Draw main cardinal directions with letters
+    // Draw main cardinal directions with degree numbers every 30°
     const directions = [
-      { angle: 0, label: 'N' },
-      { angle: 45, label: 'NO' },
-      { angle: 90, label: 'O' },
-      { angle: 135, label: 'SO' },
-      { angle: 180, label: 'S' },
-      { angle: 225, label: 'SW' },
-      { angle: 270, label: 'W' },
-      { angle: 315, label: 'NW' }
+      { angle: 0, label: '360°' },
+      { angle: 30, label: '030°' },
+      { angle: 60, label: '060°' },
+      { angle: 90, label: '090°' },
+      { angle: 120, label: '120°' },
+      { angle: 150, label: '150°' },
+      { angle: 180, label: '180°' },
+      { angle: 210, label: '210°' },
+      { angle: 240, label: '240°' },
+      { angle: 270, label: '270°' },
+      { angle: 300, label: '300°' },
+      { angle: 330, label: '330°' }
     ];
 
     directions.forEach(({ angle, label }) => {
       const radian = (angle - 90) * Math.PI / 180;
-      const labelX = centerX + Math.cos(radian) * radius * 1.2;
-      const labelY = centerY + Math.sin(radian) * radius * 1.2;
+      const labelX = centerX + Math.cos(radian) * radius * 1.15;
+      const labelY = centerY + Math.sin(radian) * radius * 1.15;
       
       ctx.fillStyle = textColor;
-      ctx.font = 'bold 16px Arial';
+      ctx.font = 'bold 12px Arial';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(label, labelX, labelY);
