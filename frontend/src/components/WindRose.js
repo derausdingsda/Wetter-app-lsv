@@ -327,23 +327,24 @@ const WindRose = ({ windData }) => {
   };
 
   const drawSpeedInfo = (ctx, centerX, centerY, windData) => {
-    const textColor = isDarkMode ? '#f1f5f9' : '#1f2937';
-    const subtextColor = isDarkMode ? '#94a3b8' : '#6b7280';
+    // Wind speed and direction info in center - REMOVED
+    // const textColor = isDarkMode ? '#f1f5f9' : '#1f2937';
+    // const subtextColor = isDarkMode ? '#94a3b8' : '#6b7280';
     
     // Current wind speed in center
-    ctx.fillStyle = textColor;
-    ctx.font = 'bold 16px Arial';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(`${windData.speed} kt`, centerX, centerY + 30);
+    // ctx.fillStyle = textColor;
+    // ctx.font = 'bold 16px Arial';
+    // ctx.textAlign = 'center';
+    // ctx.textBaseline = 'middle';
+    // ctx.fillText(`${windData.speed} kt`, centerX, centerY + 30);
     
-    ctx.font = '12px Arial';
-    ctx.fillStyle = subtextColor;
-    ctx.fillText(`${windData.direction}°`, centerX, centerY + 50);
+    // ctx.font = '12px Arial';
+    // ctx.fillStyle = subtextColor;
+    // ctx.fillText(`${windData.direction}°`, centerX, centerY + 50);
     
-    if (windData.gusts > windData.speed) {
-      ctx.fillText(`Böen: ${windData.gusts} kt`, centerX, centerY + 65);
-    }
+    // if (windData.gusts > windData.speed) {
+    //   ctx.fillText(`Böen: ${windData.gusts} kt`, centerX, centerY + 65);
+    // }
   };
 
   return (
