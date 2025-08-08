@@ -239,14 +239,18 @@ const WindRose = ({ windData }) => {
     ctx.stroke();
     ctx.setLineDash([]); // Reset line dash
     
-    // Draw runway threshold markings
+    // Draw runway threshold markings - CORRECTED to stay within runway bounds
     const thresholdLength = 12;
-    const thresholdSpacing = 6;
+    const thresholdSpacing = 4;
+    const runwayHalfWidth = runwayWidth / 2 - 2; // Keep markings inside runway bounds
     
-    // 07 threshold
-    for (let i = -2; i <= 2; i++) {
-      const offsetX = Math.cos(perpAngle) * i * thresholdSpacing;
-      const offsetY = Math.sin(perpAngle) * i * thresholdSpacing;
+    // 07 threshold - only within runway bounds
+    for (let i = -3; i <= 3; i++) {
+      const offsetDistance = i * thresholdSpacing;
+      if (Math.abs(offsetDistance) > runwayHalfWidth) continue; // Skip if outside runway
+      
+      const offsetX = Math.cos(perpAngle) * offsetDistance;
+      const offsetY = Math.sin(perpAngle) * offsetDistance;
       const startX = runway07X + offsetX - Math.cos(runway07Radian) * thresholdLength/2;
       const startY = runway07Y + offsetY - Math.sin(runway07Radian) * thresholdLength/2;
       const endX = runway07X + offsetX + Math.cos(runway07Radian) * thresholdLength/2;
@@ -260,10 +264,13 @@ const WindRose = ({ windData }) => {
       ctx.stroke();
     }
     
-    // 25 threshold
-    for (let i = -2; i <= 2; i++) {
-      const offsetX = Math.cos(perpAngle) * i * thresholdSpacing;
-      const offsetY = Math.sin(perpAngle) * i * thresholdSpacing;
+    // 25 threshold - only within runway bounds
+    for (let i = -3; i <= 3; i++) {
+      const offsetDistance = i * thresholdSpacing;
+      if (Math.abs(offsetDistance) > runwayHalfWidth) continue; // Skip if outside runway
+      
+      const offsetX = Math.cos(perpAngle) * offsetDistance;
+      const offsetY = Math.sin(perpAngle) * offsetDistance;
       const startX = runway25X + offsetX - Math.cos(runway25Radian) * thresholdLength/2;
       const startY = runway25Y + offsetY - Math.sin(runway25Radian) * thresholdLength/2;
       const endX = runway25X + offsetX + Math.cos(runway25Radian) * thresholdLength/2;
