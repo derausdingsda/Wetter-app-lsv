@@ -248,7 +248,10 @@ const WindRose = ({ windData, size = 300 }) => {
   };
 
   const drawLabels = (ctx, centerX, centerY, radius) => {
-    // Speed labels
+    // Speed labels at 120 degrees instead of 90 degrees
+    const labelAngle = 120; // degrees
+    const labelRadian = (labelAngle - 90) * Math.PI / 180;
+    
     ctx.fillStyle = '#6b7280';
     ctx.font = '10px Arial';
     ctx.textAlign = 'left';
@@ -257,7 +260,12 @@ const WindRose = ({ windData, size = 300 }) => {
     for (let speed = 10; speed <= 40; speed += 10) {
       const ringRadius = (radius * speed) / 40;
       if (ringRadius > radius) break;
-      ctx.fillText(`${speed}kt`, centerX + ringRadius + 5, centerY);
+      
+      // Calculate position at 120 degrees
+      const labelX = centerX + Math.cos(labelRadian) * ringRadius + 5;
+      const labelY = centerY + Math.sin(labelRadian) * ringRadius;
+      
+      ctx.fillText(`${speed}kt`, labelX, labelY);
     }
   };
 
