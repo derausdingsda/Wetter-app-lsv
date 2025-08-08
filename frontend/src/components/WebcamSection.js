@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { Camera, Wifi } from "lucide-react";
+import { Camera } from "lucide-react";
 
 const WebcamSection = () => {
   const webcams = [
