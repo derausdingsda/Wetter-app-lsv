@@ -111,53 +111,72 @@ const WindRose = ({ windData }) => {
   }, [windData, canvasSize, isDarkMode]);
 
   const drawCompassRose = (ctx, centerX, centerY, radius) => {
-    const strokeColor = isDarkMode ? '#475569' : '#e2e8f0';
-    const primaryStroke = isDarkMode ? '#cbd5e1' : '#475569';
-    const secondaryStroke = isDarkMode ? '#64748b' : '#cbd5e1';
-    const textColor = isDarkMode ? '#e2e8f0' : '#374151';
+    const strokeColor = isDarkMode ? '#64748b' : '#374151';
+    const primaryStroke = isDarkMode ? '#e2e8f0' : '#1f2937';
+    const textColor = isDarkMode ? '#f1f5f9' : '#1f2937';
     
-    ctx.strokeStyle = strokeColor;
-    ctx.lineWidth = 1;
+    // Draw outer circle
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+    ctx.strokeStyle = primaryStroke;
+    ctx.lineWidth = 2;
+    ctx.stroke();
 
-    // Draw concentric circles
-    for (let i = 1; i <= 4; i++) {
-      ctx.beginPath();
-      ctx.arc(centerX, centerY, (radius * i) / 4, 0, 2 * Math.PI);
-      ctx.stroke();
-    }
-
-    // Draw cardinal directions with degree values
-    const directions = [
-      { angle: 0, label: '360°', primary: true },
-      { angle: 45, label: '045°', primary: false },
-      { angle: 90, label: '090°', primary: true },
-      { angle: 135, label: '135°', primary: false },
-      { angle: 180, label: '180°', primary: true },
-      { angle: 225, label: '225°', primary: false },
-      { angle: 270, label: '270°', primary: true },
-      { angle: 315, label: '315°', primary: false }
-    ];
-
-    directions.forEach(({ angle, label, primary }) => {
-      const radian = (angle - 90) * Math.PI / 180;
-      const x1 = centerX + Math.cos(radian) * radius * 0.9;
-      const y1 = centerY + Math.sin(radian) * radius * 0.9;
-      const x2 = centerX + Math.cos(radian) * radius;
-      const y2 = centerY + Math.sin(radian) * radius;
+    // Draw degree marks around the circle
+    for (let i = 0; i < 360; i += 5) {
+      const angle = (i - 90) * Math.PI / 180;
+      const isMainDirection = i % 90 === 0;
+      const isMidDirection = i % 45 === 0 && i % 90 !== 0;
+      const is10DegMark = i % 10 === 0;
+      
+      let outerRadius = radius;
+      let innerRadius;
+      
+      if (isMainDirection) {
+        innerRadius = radius * 0.85; // Long marks for main directions
+        ctx.lineWidth = 2;
+      } else if (isMidDirection) {
+        innerRadius = radius * 0.9; // Medium marks for 45° directions
+        ctx.lineWidth = 1.5;
+      } else if (is10DegMark) {
+        innerRadius = radius * 0.93; // Short marks for 10° marks
+        ctx.lineWidth = 1;
+      } else {
+        innerRadius = radius * 0.95; // Very short marks for 5° marks
+        ctx.lineWidth = 0.5;
+      }
+      
+      const x1 = centerX + Math.cos(angle) * innerRadius;
+      const y1 = centerY + Math.sin(angle) * innerRadius;
+      const x2 = centerX + Math.cos(angle) * outerRadius;
+      const y2 = centerY + Math.sin(angle) * outerRadius;
 
       ctx.beginPath();
       ctx.moveTo(x1, y1);
       ctx.lineTo(x2, y2);
-      ctx.strokeStyle = primary ? primaryStroke : secondaryStroke;
-      ctx.lineWidth = primary ? 2 : 1;
+      ctx.strokeStyle = strokeColor;
       ctx.stroke();
+    }
 
-      // Draw labels
-      const labelX = centerX + Math.cos(radian) * radius * 1.15; // Reduced from 1.25 to 1.15 for optimal spacing
-      const labelY = centerY + Math.sin(radian) * radius * 1.15; // Reduced from 1.25 to 1.15 for optimal spacing
+    // Draw main cardinal directions with letters
+    const directions = [
+      { angle: 0, label: 'N' },
+      { angle: 45, label: 'NO' },
+      { angle: 90, label: 'O' },
+      { angle: 135, label: 'SO' },
+      { angle: 180, label: 'S' },
+      { angle: 225, label: 'SW' },
+      { angle: 270, label: 'W' },
+      { angle: 315, label: 'NW' }
+    ];
+
+    directions.forEach(({ angle, label }) => {
+      const radian = (angle - 90) * Math.PI / 180;
+      const labelX = centerX + Math.cos(radian) * radius * 1.2;
+      const labelY = centerY + Math.sin(radian) * radius * 1.2;
       
       ctx.fillStyle = textColor;
-      ctx.font = primary ? 'bold 14px Arial' : '12px Arial';
+      ctx.font = 'bold 16px Arial';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(label, labelX, labelY);
