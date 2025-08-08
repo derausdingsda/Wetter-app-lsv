@@ -320,43 +320,47 @@ const WindRose = ({ windData }) => {
   const drawWindArrow = (ctx, centerX, centerY, radius, direction) => {
     const radian = (direction - 90) * Math.PI / 180;
     
-    // Position the arrow further outside for better visibility
-    const arrowDistance = radius * 1.15; // Moved further out from 1.05 to 1.15
-    const arrowLength = 50; // Much larger: increased from 35 to 50
+    // Position the arrow on the outer ring
+    const arrowDistance = radius * 1.1; // Outside the main circle
+    const arrowLength = 45; // Large arrow
     
-    // Calculate arrow tip position OUTSIDE the circle (more visible)
-    const arrowTipX = centerX + Math.cos(radian) * arrowDistance;
-    const arrowTipY = centerY + Math.sin(radian) * arrowDistance;
+    // Calculate arrow base position on the outer ring
+    const arrowBaseX = centerX + Math.cos(radian) * arrowDistance;
+    const arrowBaseY = centerY + Math.sin(radian) * arrowDistance;
     
-    // Calculate arrow base position (pointing inward)
-    const arrowBaseX = arrowTipX - Math.cos(radian) * arrowLength;
-    const arrowBaseY = arrowTipY - Math.sin(radian) * arrowLength;
+    // Calculate arrow tip position (pointing toward center)
+    const arrowTipX = arrowBaseX - Math.cos(radian) * arrowLength;
+    const arrowTipY = arrowBaseY - Math.sin(radian) * arrowLength;
     
-    // Draw arrow shaft - much thicker
-    ctx.beginPath();
-    ctx.moveTo(arrowBaseX, arrowBaseY);
-    ctx.lineTo(arrowTipX, arrowTipY);
-    ctx.strokeStyle = isDarkMode ? '#dc2626' : '#dc2626'; // Red arrow for better visibility
-    ctx.lineWidth = 8; // Much thicker: increased from 5 to 8
-    ctx.stroke();
-
-    // Draw arrow head (at the tip, outside the circle) - much larger
-    const arrowHeadLength = 18; // Much larger: increased from 12 to 18
-    const arrowHeadAngle = Math.PI / 5; // Slightly wider angle for bigger head
+    // Draw arrow head FIRST (so it's not covered by the shaft)
+    const arrowHeadLength = 20; // Large arrow head
+    const arrowHeadAngle = Math.PI / 5;
     
     ctx.beginPath();
     ctx.moveTo(arrowTipX, arrowTipY);
     ctx.lineTo(
-      arrowTipX - arrowHeadLength * Math.cos(radian - arrowHeadAngle),
-      arrowTipY - arrowHeadLength * Math.sin(radian - arrowHeadAngle)
+      arrowTipX + arrowHeadLength * Math.cos(radian - arrowHeadAngle),
+      arrowTipY + arrowHeadLength * Math.sin(radian - arrowHeadAngle)
     );
     ctx.lineTo(
-      arrowTipX - arrowHeadLength * Math.cos(radian + arrowHeadAngle),
-      arrowTipY - arrowHeadLength * Math.sin(radian + arrowHeadAngle)
+      arrowTipX + arrowHeadLength * Math.cos(radian + arrowHeadAngle),
+      arrowTipY + arrowHeadLength * Math.sin(radian + arrowHeadAngle)
     );
     ctx.closePath();
     ctx.fillStyle = isDarkMode ? '#dc2626' : '#dc2626';
     ctx.fill();
+    
+    // Draw arrow shaft AFTER the head (so head stays visible and sharp)
+    // Make shaft slightly shorter so it doesn't overlap the head
+    const shaftEndX = arrowTipX + Math.cos(radian) * 8; // Stop shaft before the tip
+    const shaftEndY = arrowTipY + Math.sin(radian) * 8;
+    
+    ctx.beginPath();
+    ctx.moveTo(arrowBaseX, arrowBaseY);
+    ctx.lineTo(shaftEndX, shaftEndY);
+    ctx.strokeStyle = isDarkMode ? '#dc2626' : '#dc2626';
+    ctx.lineWidth = 8; // Thick shaft
+    ctx.stroke();
   };
 
   const drawSpeedRings = (ctx, centerX, centerY, radius, speed) => {
