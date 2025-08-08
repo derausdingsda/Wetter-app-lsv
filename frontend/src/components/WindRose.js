@@ -320,39 +320,39 @@ const WindRose = ({ windData }) => {
   const drawWindArrow = (ctx, centerX, centerY, radius, direction) => {
     const radian = (direction - 90) * Math.PI / 180;
     
-    // Position the arrow on the outer ring, not from center
-    const arrowDistance = radius * 1.05; // Just outside the main circle
-    const arrowLength = 35; // Increased from 25 to 35 for larger arrow
+    // Position the arrow further outside for better visibility
+    const arrowDistance = radius * 1.15; // Moved further out from 1.05 to 1.15
+    const arrowLength = 50; // Much larger: increased from 35 to 50
     
-    // Calculate arrow base position on the outer ring
-    const arrowBaseX = centerX + Math.cos(radian) * arrowDistance;
-    const arrowBaseY = centerY + Math.sin(radian) * arrowDistance;
+    // Calculate arrow tip position OUTSIDE the circle (more visible)
+    const arrowTipX = centerX + Math.cos(radian) * arrowDistance;
+    const arrowTipY = centerY + Math.sin(radian) * arrowDistance;
     
-    // Calculate arrow tip position (pointing inward toward center)
-    const arrowTipX = arrowBaseX - Math.cos(radian) * arrowLength;
-    const arrowTipY = arrowBaseY - Math.sin(radian) * arrowLength;
+    // Calculate arrow base position (pointing inward)
+    const arrowBaseX = arrowTipX - Math.cos(radian) * arrowLength;
+    const arrowBaseY = arrowTipY - Math.sin(radian) * arrowLength;
     
-    // Draw arrow shaft - thicker
+    // Draw arrow shaft - much thicker
     ctx.beginPath();
     ctx.moveTo(arrowBaseX, arrowBaseY);
     ctx.lineTo(arrowTipX, arrowTipY);
     ctx.strokeStyle = isDarkMode ? '#dc2626' : '#dc2626'; // Red arrow for better visibility
-    ctx.lineWidth = 5; // Increased from 3 to 5 for thicker arrow
+    ctx.lineWidth = 8; // Much thicker: increased from 5 to 8
     ctx.stroke();
 
-    // Draw arrow head (pointing toward center) - larger
-    const arrowHeadLength = 12; // Increased from 8 to 12
-    const arrowHeadAngle = Math.PI / 6;
+    // Draw arrow head (at the tip, outside the circle) - much larger
+    const arrowHeadLength = 18; // Much larger: increased from 12 to 18
+    const arrowHeadAngle = Math.PI / 5; // Slightly wider angle for bigger head
     
     ctx.beginPath();
     ctx.moveTo(arrowTipX, arrowTipY);
     ctx.lineTo(
-      arrowTipX + arrowHeadLength * Math.cos(radian - arrowHeadAngle),
-      arrowTipY + arrowHeadLength * Math.sin(radian - arrowHeadAngle)
+      arrowTipX - arrowHeadLength * Math.cos(radian - arrowHeadAngle),
+      arrowTipY - arrowHeadLength * Math.sin(radian - arrowHeadAngle)
     );
     ctx.lineTo(
-      arrowTipX + arrowHeadLength * Math.cos(radian + arrowHeadAngle),
-      arrowTipY + arrowHeadLength * Math.sin(radian + arrowHeadAngle)
+      arrowTipX - arrowHeadLength * Math.cos(radian + arrowHeadAngle),
+      arrowTipY - arrowHeadLength * Math.sin(radian + arrowHeadAngle)
     );
     ctx.closePath();
     ctx.fillStyle = isDarkMode ? '#dc2626' : '#dc2626';
