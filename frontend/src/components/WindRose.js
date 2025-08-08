@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from "react";
+import { useTheme } from "../contexts/ThemeContext";
 
 const WindRose = ({ windData, size = 300 }) => {
   const canvasRef = useRef(null);
   const animationRef = useRef(null);
+  const { isDarkMode } = useTheme();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -56,7 +58,7 @@ const WindRose = ({ windData, size = 300 }) => {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [windData, size]);
+  }, [windData, size, isDarkMode]);
 
   const drawCompassRose = (ctx, centerX, centerY, radius) => {
     ctx.strokeStyle = '#e2e8f0';
