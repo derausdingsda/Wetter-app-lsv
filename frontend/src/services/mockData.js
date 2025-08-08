@@ -115,7 +115,7 @@ const mockWeatherData = {
     const cloudCoverage = cloudTypes[randomCloudIndex];
     
     return {
-      airportName: "Flugplatz Mainz",
+      airportName: "Zerbst/Anhalt",
       icaoCode: "EDUZ",
       lastUpdate: new Date().toISOString(),
       

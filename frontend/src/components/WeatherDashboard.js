@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
 import WindRose from "./WindRose";
-import WeatherCard from "./WeatherCard";
+import CombinedWeatherCard from "./CombinedWeatherCard";
 import ThemeToggle from "./ThemeToggle";
 import { mockWeatherData } from "../services/mockData";
 import { 
@@ -47,6 +47,70 @@ const WeatherDashboard = () => {
     );
   }
 
+  // Format date as DD.MM.YYYY
+  const formatDate = (date) => {
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}.${month}.${year}`;
+  };
+
+  // Prepare combined weather data
+  const windTemperatureData = [
+    {
+      icon: <Wind className="h-5 w-5" />,
+      label: "Wind",
+      value: `${weatherData.wind.speed} kt`,
+      subtitle: `aus ${weatherData.wind.direction}° (${weatherData.wind.directionName})`,
+      trend: weatherData.wind.gusts > weatherData.wind.speed ? `Böen bis ${weatherData.wind.gusts} kt` : "Gleichmäßig",
+      color: "blue"
+    },
+    {
+      icon: <Thermometer className="h-5 w-5" />,
+      label: "Temperatur",
+      value: `${weatherData.temperature.current}°C`,
+      subtitle: `Gefühlt ${weatherData.temperature.feelsLike}°C`,
+      trend: `Taupunkt: ${weatherData.temperature.dewPoint}°C`,
+      color: "orange"
+    }
+  ];
+
+  const humidityPressureData = [
+    {
+      icon: <Droplets className="h-5 w-5" />,
+      label: "Luftfeuchtigkeit",
+      value: `${weatherData.humidity}%`,
+      subtitle: "Relative Feuchtigkeit",
+      color: "teal"
+    },
+    {
+      icon: <Gauge className="h-5 w-5" />,
+      label: "Luftdruck",
+      value: `${weatherData.pressure.qnh} hPa`,
+      subtitle: `QNH: ${weatherData.pressure.qnh} hPa`,
+      trend: `QFE: ${weatherData.pressure.qfe} hPa`,
+      color: "purple"
+    }
+  ];
+
+  const visibilityCloudsData = [
+    {
+      icon: <Eye className="h-5 w-5" />,
+      label: "Sichtweite",
+      value: `${weatherData.visibility.distance} km`,
+      subtitle: weatherData.visibility.condition,
+      color: "green"
+    },
+    {
+      icon: <Cloud className="h-5 w-5" />,
+      label: "Wolken",
+      value: weatherData.clouds.coverage,
+      subtitle: weatherData.clouds.base ? `Basis: ${weatherData.clouds.base} ft` : "Keine Wolken",
+      trend: weatherData.clouds.type,
+      color: "gray"
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 transition-colors duration-300 p-4">
       {/* Header */}
@@ -71,7 +135,7 @@ const WeatherDashboard = () => {
                 {currentTime.toLocaleTimeString('en-GB', { timeZone: 'UTC', hour12: false })} UTC
               </div>
               <div className="text-sm text-gray-600 dark:text-gray-300">
-                {currentTime.toLocaleDateString('de-DE')}
+                {formatDate(currentTime)}
               </div>
             </div>
             <ThemeToggle />
@@ -104,26 +168,11 @@ const WeatherDashboard = () => {
               </CardContent>
             </Card>
 
-            {/* Weather Overview */}
-            <div className="space-y-4">
-              <WeatherCard
-                title="Wind"
-                icon={<Wind className="h-6 w-6" />}
-                value={`${weatherData.wind.speed} kt`}
-                subtitle={`aus ${weatherData.wind.direction}° (${weatherData.wind.directionName})`}
-                trend={weatherData.wind.gusts > weatherData.wind.speed ? "Böen bis " + weatherData.wind.gusts + " kt" : "Gleichmäßig"}
-                color="blue"
-              />
-              
-              <WeatherCard
-                title="Temperatur"
-                icon={<Thermometer className="h-6 w-6" />}
-                value={`${weatherData.temperature.current}°C`}
-                subtitle={`Gefühlt ${weatherData.temperature.feelsLike}°C`}
-                trend={`Taupunkt: ${weatherData.temperature.dewPoint}°C`}
-                color="orange"
-              />
-            </div>
+            {/* Combined Wind & Temperature */}
+            <CombinedWeatherCard
+              title="Wind & Temperatur"
+              data={windTemperatureData}
+            />
           </div>
         </section>
 
@@ -133,39 +182,15 @@ const WeatherDashboard = () => {
             Weitere Messwerte
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <WeatherCard
-              title="Luftfeuchtigkeit"
-              icon={<Droplets className="h-6 w-6" />}
-              value={`${weatherData.humidity}%`}
-              subtitle="Relative Feuchtigkeit"
-              color="teal"
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <CombinedWeatherCard
+              title="Luftfeuchtigkeit & Luftdruck"
+              data={humidityPressureData}
             />
             
-            <WeatherCard
-              title="Luftdruck"
-              icon={<Gauge className="h-6 w-6" />}
-              value={`${weatherData.pressure.qnh} hPa`}
-              subtitle={`QNH: ${weatherData.pressure.qnh} hPa`}
-              trend={`QFE: ${weatherData.pressure.qfe} hPa`}
-              color="purple"
-            />
-            
-            <WeatherCard
-              title="Sichtweite"
-              icon={<Eye className="h-6 w-6" />}
-              value={`${weatherData.visibility.distance} km`}
-              subtitle={weatherData.visibility.condition}
-              color="green"
-            />
-            
-            <WeatherCard
-              title="Wolken"
-              icon={<Cloud className="h-6 w-6" />}
-              value={weatherData.clouds.coverage}
-              subtitle={`Basis: ${weatherData.clouds.base} ft`}
-              trend={weatherData.clouds.type}
-              color="gray"
+            <CombinedWeatherCard
+              title="Sichtweite & Wolken"
+              data={visibilityCloudsData}
             />
           </div>
         </section>
