@@ -85,6 +85,35 @@ const WebcamSection = () => {
           </Card>
         ))}
       </div>
+
+      {/* Fullscreen Dialog */}
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="max-w-6xl w-full h-[90vh] p-0">
+          <DialogHeader className="p-6 pb-0">
+            <DialogTitle className="text-2xl font-bold flex items-center justify-between">
+              <span>Webcam {selectedWebcam?.name}</span>
+              <button 
+                onClick={closeFullscreen}
+                className="p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-full transition-colors"
+              >
+                <X className="h-6 w-6" />
+              </button>
+            </DialogTitle>
+          </DialogHeader>
+          <div className="flex-1 p-6 pt-0">
+            {selectedWebcam && (
+              <img 
+                src={selectedWebcam.placeholder}
+                alt={`Webcam ${selectedWebcam.name} - Vollbild`}
+                className="w-full h-full object-contain rounded-lg border border-gray-200 dark:border-slate-600"
+                onError={(e) => {
+                  e.target.src = "data:image/svg+xml,%3Csvg width='800' height='600' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='800' height='600' fill='%23e2e8f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236b7280' font-size='24' font-family='Arial'%3EWebcam Bild nicht verfügbar%3C/text%3E%3C/svg%3E";
+                }}
+              />
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
