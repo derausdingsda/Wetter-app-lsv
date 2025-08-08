@@ -320,11 +320,11 @@ const WindRose = ({ windData }) => {
   const drawWindArrow = (ctx, centerX, centerY, radius, direction) => {
     const radian = (direction - 90) * Math.PI / 180;
     
-    // Position the arrow on the outer ring
-    const arrowDistance = radius * 1.1; // Outside the main circle
-    const arrowLength = 45; // Large arrow
+    // Move arrow closer to center
+    const arrowDistance = radius * 0.95; // Moved closer: from 1.1 to 0.95
+    const arrowLength = 60; // Even larger: increased from 45 to 60
     
-    // Calculate arrow base position on the outer ring
+    // Calculate arrow base position
     const arrowBaseX = centerX + Math.cos(radian) * arrowDistance;
     const arrowBaseY = centerY + Math.sin(radian) * arrowDistance;
     
@@ -333,7 +333,7 @@ const WindRose = ({ windData }) => {
     const arrowTipY = arrowBaseY - Math.sin(radian) * arrowLength;
     
     // Draw arrow head FIRST (so it's not covered by the shaft)
-    const arrowHeadLength = 20; // Large arrow head
+    const arrowHeadLength = 25; // Even larger: increased from 20 to 25
     const arrowHeadAngle = Math.PI / 5;
     
     ctx.beginPath();
@@ -352,14 +352,14 @@ const WindRose = ({ windData }) => {
     
     // Draw arrow shaft AFTER the head (so head stays visible and sharp)
     // Make shaft slightly shorter so it doesn't overlap the head
-    const shaftEndX = arrowTipX + Math.cos(radian) * 8; // Stop shaft before the tip
-    const shaftEndY = arrowTipY + Math.sin(radian) * 8;
+    const shaftEndX = arrowTipX + Math.cos(radian) * 10; // Increased gap from 8 to 10
+    const shaftEndY = arrowTipY + Math.sin(radian) * 10;
     
     ctx.beginPath();
     ctx.moveTo(arrowBaseX, arrowBaseY);
     ctx.lineTo(shaftEndX, shaftEndY);
     ctx.strokeStyle = isDarkMode ? '#dc2626' : '#dc2626';
-    ctx.lineWidth = 8; // Thick shaft
+    ctx.lineWidth = 10; // Even thicker: increased from 8 to 10
     ctx.stroke();
   };
 
