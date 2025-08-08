@@ -115,8 +115,8 @@ const mockWeatherData = {
     const cloudCoverage = cloudTypes[randomCloudIndex];
     
     return {
-      airportName: "Flugplatz München-Riem",
-      icaoCode: "EDNM",
+      airportName: "Flugplatz Mainz",
+      icaoCode: "EDUZ",
       lastUpdate: new Date().toISOString(),
       
       wind: {
