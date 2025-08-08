@@ -1,32 +1,72 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTheme } from "../contexts/ThemeContext";
 
-const WindRose = ({ windData, size = 300 }) => {
+const WindRose = ({ windData }) => {
   const canvasRef = useRef(null);
+  const containerRef = useRef(null);
   const animationRef = useRef(null);
+  const [canvasSize, setCanvasSize] = useState(300);
   const { isDarkMode } = useTheme();
+
+  // Update canvas size based on container size
+  useEffect(() => {
+    const updateSize = () => {
+      if (containerRef.current) {
+        const container = containerRef.current;
+        const containerWidth = container.clientWidth;
+        const containerHeight = container.clientHeight;
+        // Use the smaller dimension and leave some padding
+        const size = Math.min(containerWidth, containerHeight) - 40;
+        setCanvasSize(Math.max(250, size)); // Minimum size of 250px
+      }
+    };
+
+    // Initial size calculation
+    updateSize();
+
+    // Update size on window resize
+    const handleResize = () => {
+      setTimeout(updateSize, 100); // Debounce resize events
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // Optional: Use ResizeObserver if available for more precise container size changes
+    let resizeObserver = null;
+    if (window.ResizeObserver && containerRef.current) {
+      resizeObserver = new ResizeObserver(updateSize);
+      resizeObserver.observe(containerRef.current);
+    }
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas || canvasSize <= 0) return;
 
     const ctx = canvas.getContext('2d');
-    const centerX = size / 2;
-    const centerY = size / 2;
-    const radius = size * 0.35; // Reduced from 0.4 to 0.35 to leave more space for labels
+    const centerX = canvasSize / 2;
+    const centerY = canvasSize / 2;
+    const radius = canvasSize * 0.35;
 
     // Set canvas size with device pixel ratio for crisp rendering
     const dpr = window.devicePixelRatio || 1;
-    canvas.width = size * dpr;
-    canvas.height = size * dpr;
-    canvas.style.width = `${size}px`;
-    canvas.style.height = `${size}px`;
+    canvas.width = canvasSize * dpr;
+    canvas.height = canvasSize * dpr;
+    canvas.style.width = `${canvasSize}px`;
+    canvas.style.height = `${canvasSize}px`;
     ctx.scale(dpr, dpr);
 
     let animationAngle = 0;
 
     const animate = () => {
-      ctx.clearRect(0, 0, size, size);
+      ctx.clearRect(0, 0, canvasSize, canvasSize);
 
       // Draw compass rose background
       drawCompassRose(ctx, centerX, centerY, radius);
@@ -58,7 +98,7 @@ const WindRose = ({ windData, size = 300 }) => {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [windData, size, isDarkMode]);
+  }, [windData, canvasSize, isDarkMode]);
 
   const drawCompassRose = (ctx, centerX, centerY, radius) => {
     const strokeColor = isDarkMode ? '#475569' : '#e2e8f0';
