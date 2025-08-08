@@ -69,16 +69,16 @@ const WindRose = ({ windData, size = 300 }) => {
       ctx.stroke();
     }
 
-    // Draw cardinal directions
+    // Draw cardinal directions with degree values
     const directions = [
-      { angle: 0, label: 'N', primary: true },
-      { angle: 45, label: 'NE', primary: false },
-      { angle: 90, label: 'E', primary: true },
-      { angle: 135, label: 'SE', primary: false },
-      { angle: 180, label: 'S', primary: true },
-      { angle: 225, label: 'SW', primary: false },
-      { angle: 270, label: 'W', primary: true },
-      { angle: 315, label: 'NW', primary: false }
+      { angle: 0, label: '360°', primary: true },
+      { angle: 45, label: '045°', primary: false },
+      { angle: 90, label: '090°', primary: true },
+      { angle: 135, label: '135°', primary: false },
+      { angle: 180, label: '180°', primary: true },
+      { angle: 225, label: '225°', primary: false },
+      { angle: 270, label: '270°', primary: true },
+      { angle: 315, label: '315°', primary: false }
     ];
 
     directions.forEach(({ angle, label, primary }) => {
