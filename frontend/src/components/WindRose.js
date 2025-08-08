@@ -13,28 +13,38 @@ const WindRose = ({ windData }) => {
     const updateSize = () => {
       if (containerRef.current) {
         const container = containerRef.current;
-        const containerWidth = container.clientWidth;
-        const containerHeight = container.clientHeight;
-        // Use the smaller dimension and leave some padding
-        const size = Math.min(containerWidth, containerHeight) - 40;
-        setCanvasSize(Math.max(250, size)); // Minimum size of 250px
+        const rect = container.getBoundingClientRect();
+        const containerWidth = rect.width;
+        const containerHeight = rect.height;
+        
+        // Use 90% of the smaller dimension to maximize space usage
+        const availableSize = Math.min(containerWidth, containerHeight) * 0.9;
+        const size = Math.max(250, Math.min(availableSize, 600)); // Min 250px, max 600px
+        
+        setCanvasSize(size);
       }
     };
 
-    // Initial size calculation
-    updateSize();
+    // Initial size calculation with delay to ensure container is rendered
+    const initialUpdate = () => {
+      setTimeout(updateSize, 100);
+    };
+    
+    initialUpdate();
 
     // Update size on window resize
     const handleResize = () => {
-      setTimeout(updateSize, 100); // Debounce resize events
+      setTimeout(updateSize, 150); // Debounce resize events
     };
 
     window.addEventListener('resize', handleResize);
 
-    // Optional: Use ResizeObserver if available for more precise container size changes
+    // Use ResizeObserver if available for more precise container size changes
     let resizeObserver = null;
     if (window.ResizeObserver && containerRef.current) {
-      resizeObserver = new ResizeObserver(updateSize);
+      resizeObserver = new ResizeObserver(() => {
+        setTimeout(updateSize, 50);
+      });
       resizeObserver.observe(containerRef.current);
     }
 
