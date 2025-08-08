@@ -259,7 +259,7 @@ const WindRose = ({ windData, size = 300 }) => {
     const labelAngle = 120; // degrees
     const labelRadian = (labelAngle - 90) * Math.PI / 180;
     
-    ctx.fillStyle = '#6b7280';
+    ctx.fillStyle = isDarkMode ? '#94a3b8' : '#6b7280';
     ctx.font = '10px Arial';
     ctx.textAlign = 'left';
     ctx.textBaseline = 'middle';
