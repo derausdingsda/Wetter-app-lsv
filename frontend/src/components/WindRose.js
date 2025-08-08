@@ -96,8 +96,8 @@ const WindRose = ({ windData, size = 300 }) => {
       ctx.stroke();
 
       // Draw labels
-      const labelX = centerX + Math.cos(radian) * radius * 1.25; // Increased from 1.02 to 1.25 for more spacing
-      const labelY = centerY + Math.sin(radian) * radius * 1.25; // Increased from 1.02 to 1.25 for more spacing
+      const labelX = centerX + Math.cos(radian) * radius * 1.15; // Reduced from 1.25 to 1.15 for optimal spacing
+      const labelY = centerY + Math.sin(radian) * radius * 1.15; // Reduced from 1.25 to 1.15 for optimal spacing
       
       ctx.fillStyle = '#374151';
       ctx.font = primary ? 'bold 14px Arial' : '12px Arial';
