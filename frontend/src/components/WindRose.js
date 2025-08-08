@@ -341,20 +341,8 @@ const WindRose = ({ windData }) => {
   };
 
   const drawSpeedRings = (ctx, centerX, centerY, radius, speed) => {
-    // Speed scale rings (every 5 knots)
-    const maxSpeed = 40; // kt
-    const rings = Math.ceil(maxSpeed / 10);
-    
-    for (let i = 1; i <= rings; i++) {
-      const ringRadius = (radius * i * 10) / maxSpeed;
-      if (ringRadius > radius) break;
-      
-      ctx.beginPath();
-      ctx.arc(centerX, centerY, ringRadius, 0, 2 * Math.PI);
-      ctx.strokeStyle = speed > i * 10 ? '#3b82f6' : '#e2e8f0';
-      ctx.lineWidth = speed > i * 10 ? 2 : 1;
-      ctx.stroke();
-    }
+    // Remove the speed rings completely for a cleaner look like in the example
+    // The speed rings were cluttering the professional appearance
   };
 
   const drawLabels = (ctx, centerX, centerY, radius) => {
