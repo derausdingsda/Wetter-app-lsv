@@ -180,20 +180,13 @@ const WeatherDashboard = () => {
           </h2>
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <CombinedWeatherCard
-              title="Luftfeuchtigkeit & Luftdruck"
-              data={humidityPressureData}
-            />
-            
-            <CombinedWeatherCard
-              title="Sichtweite & Wolken"
-              data={visibilityCloudsData}
-            />
-            
-            <CombinedWeatherCard
-              title="Wind & Temperatur"
-              data={windTemperatureData}
-            />
+            {secondaryWeatherData.map((item, index) => (
+              <CombinedWeatherCard
+                key={index}
+                title={item.label}
+                data={[item]}
+              />
+            ))}
           </div>
         </section>
 
