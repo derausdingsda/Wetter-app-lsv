@@ -133,6 +133,9 @@ const WebcamSection = () => {
             <DialogTitle className="text-lg font-bold text-center">
               Webcam {selectedWebcam?.name}
             </DialogTitle>
+            <div className="text-xs text-center text-gray-500 dark:text-gray-400 mt-1">
+              ← → Pfeiltasten zum Durchschalten • ESC zum Schließen
+            </div>
           </DialogHeader>
           <div className="flex-1 flex justify-center items-center min-h-0">
             {selectedWebcam && (
