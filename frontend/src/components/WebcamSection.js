@@ -45,6 +45,52 @@ const WebcamSection = () => {
     setSelectedWebcam(null);
   };
 
+  // Navigate to previous webcam
+  const navigateToPrevious = () => {
+    if (!selectedWebcam) return;
+    const currentIndex = webcams.findIndex(cam => cam.id === selectedWebcam.id);
+    const prevIndex = currentIndex > 0 ? currentIndex - 1 : webcams.length - 1;
+    setSelectedWebcam(webcams[prevIndex]);
+  };
+
+  // Navigate to next webcam
+  const navigateToNext = () => {
+    if (!selectedWebcam) return;
+    const currentIndex = webcams.findIndex(cam => cam.id === selectedWebcam.id);
+    const nextIndex = currentIndex < webcams.length - 1 ? currentIndex + 1 : 0;
+    setSelectedWebcam(webcams[nextIndex]);
+  };
+
+  // Add keyboard event listener for arrow keys
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (!isDialogOpen) return;
+      
+      switch (event.key) {
+        case 'ArrowLeft':
+          event.preventDefault();
+          navigateToPrevious();
+          break;
+        case 'ArrowRight':
+          event.preventDefault();
+          navigateToNext();
+          break;
+        case 'Escape':
+          event.preventDefault();
+          closeFullscreen();
+          break;
+      }
+    };
+
+    if (isDialogOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isDialogOpen, selectedWebcam]);
+
   return (
     <section>
       <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
