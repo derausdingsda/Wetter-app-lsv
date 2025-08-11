@@ -37,9 +37,19 @@ class StatusCheckCreate(BaseModel):
     client_name: str
 
 # Add your routes to the router instead of directly to app
+@app.get("/health")
+async def health_check():
+    """Health check endpoint for Docker"""
+    try:
+        # Test database connection
+        await client.admin.command('ping')
+        return {"status": "healthy", "database": "connected"}
+    except Exception as e:
+        return {"status": "unhealthy", "error": str(e)}
+
 @api_router.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "Weather API is running"}
 
 @api_router.post("/status", response_model=StatusCheck)
 async def create_status_check(input: StatusCheckCreate):
