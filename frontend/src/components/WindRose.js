@@ -347,7 +347,7 @@ const WindRose = ({ windData }) => {
       arrowTipY + arrowHeadLength * Math.sin(radian + arrowHeadAngle)
     );
     ctx.closePath();
-    ctx.fillStyle = isDarkMode ? '#666666' : '#666666';
+    ctx.fillStyle = isDarkMode ? '#dc2626' : '#dc2626';
     ctx.fill();
     
     // Draw arrow shaft AFTER the head (so head stays visible and sharp)
@@ -358,7 +358,7 @@ const WindRose = ({ windData }) => {
     ctx.beginPath();
     ctx.moveTo(arrowBaseX, arrowBaseY);
     ctx.lineTo(shaftEndX, shaftEndY);
-    ctx.strokeStyle = isDarkMode ? '#666666' : '#666666';
+    ctx.strokeStyle = isDarkMode ? '#dc2626' : '#dc2626';
     ctx.lineWidth = 10; // Even thicker: increased from 8 to 10
     ctx.stroke();
   };
